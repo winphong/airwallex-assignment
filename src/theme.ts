@@ -1,3 +1,5 @@
+import { DefaultTheme } from "styled-components";
+
 export const theme = {
   breakpoints: {
     xs: "480px",
@@ -15,6 +17,15 @@ export const theme = {
     gray5: "#F1EFEF",
     white: "#FFFFFF",
   },
+  fontSizes: {
+    base: "16px",
+    mega: "40px",
+    giga: "60px",
+  },
 } as const;
 
+export const media = (breakpoint: keyof DefaultTheme["breakpoints"]) => {
+  return ({ theme }: { theme: DefaultTheme }) =>
+    `@media (max-width: ${theme.breakpoints[breakpoint]})`;
+};
 export type ITheme = typeof theme;

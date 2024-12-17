@@ -2,16 +2,20 @@ import styled from "styled-components";
 
 export const Header = () => {
   return (
-    <FixedContainer>
+    <FixedHeader>
       <HeaderText>Broccoli & Co.</HeaderText>
-    </FixedContainer>
+    </FixedHeader>
   );
 };
 
-const FixedContainer = styled.div`
+const FixedHeader = styled.header`
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
-  border-bottom: 2px solid ${(props) => props.theme.color.gray4};
+  z-index: 1000;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
 const HeaderText = styled.h1`
