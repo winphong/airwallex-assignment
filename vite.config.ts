@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference types="vitest/config" />
 
 import { defineConfig } from "vite";
@@ -8,6 +9,9 @@ import { configDefaults } from "vitest/config";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
+  build: {
+    sourcemap: true,
+  },
   test: {
     globals: true,
     environment: "jsdom",

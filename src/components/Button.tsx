@@ -1,22 +1,26 @@
 import { media } from "@/theme";
 import styled from "styled-components";
-import { Label } from "@/components/Typography";
 import { ReactNode } from "react";
+import Typo from "./Typography";
+import React from "react";
 
 interface Props {
   onClick: () => void;
   children: ReactNode;
+  className?: string;
 }
 
-const Button = ({ onClick, children }: Props) => {
-  return (
-    <ButtonContainer>
-      <StyledButton onClick={onClick}>
-        <Label>{children}</Label>
-      </StyledButton>
-    </ButtonContainer>
-  );
-};
+const Button = React.forwardRef<HTMLButtonElement, Props>(
+  ({ onClick, children, className }, ref) => {
+    return (
+      <ButtonContainer className={className}>
+        <StyledButton ref={ref} onClick={onClick}>
+          <Typo.Label>{children}</Typo.Label>
+        </StyledButton>
+      </ButtonContainer>
+    );
+  }
+);
 
 const ButtonContainer = styled.div`
   width: 30vw;
@@ -36,7 +40,6 @@ const ButtonContainer = styled.div`
 const StyledButton = styled.button`
   min-height: 60px;
   width: 100%;
-  background-color: beige;
   border-radius: 0.3rem;
 `;
 
