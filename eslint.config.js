@@ -23,6 +23,17 @@ export default tseslint.config(
         "warn",
         { allowConstantExport: true },
       ],
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "@radix-ui/react-toast",
+              message: "Import Toast @/components/Toast instead",
+            },
+          ],
+        },
+      ],
     },
   }
 );

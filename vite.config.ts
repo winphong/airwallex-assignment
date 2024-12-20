@@ -9,6 +9,15 @@ import { configDefaults } from "vitest/config";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
+  server: {
+    proxy: {
+      "/prod": {
+        target: "https://l94wc2001h.execute-api.ap-southeast-2.amazonaws.com",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/prod/, ""),
+      },
+    },
+  },
   build: {
     sourcemap: true,
   },

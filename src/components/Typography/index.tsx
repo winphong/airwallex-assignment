@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 interface TypographyProps {
   size?: string;
-  weight?: number;
+  $weight?: number;
 }
 const Label = styled.p<TypographyProps>`
   font-size: ${(props) => props.size ?? props.theme.fontSizes.base};
   color: ${(props) => props.color || props.theme.color.gray1};
-  font-weight: ${(props) => props.weight ?? 500};
+  font-weight: ${(props) => props.$weight ?? 500};
 `;
 
 const Title = styled.h1<TypographyProps>`
