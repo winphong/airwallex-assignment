@@ -16,6 +16,7 @@ export const theme = {
     gray4: "#D9D9D9",
     gray5: "#F1EFEF",
     white: "#FFFFFF",
+    red: "#C30010",
   },
   fontSizes: {
     base: "16px",

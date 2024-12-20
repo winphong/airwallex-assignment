@@ -1,21 +1,23 @@
 import { media } from "@/theme";
-import styled from "styled-components";
-import { ReactNode } from "react";
+import styled, { useTheme } from "styled-components";
+import { forwardRef, ReactNode } from "react";
 import Typo from "./Typography";
-import React from "react";
 
 interface Props {
-  onClick: () => void;
+  onClick?: () => void;
   children: ReactNode;
   className?: string;
+  disabled?: boolean;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, Props>(
-  ({ onClick, children, className }, ref) => {
+const Button = forwardRef<HTMLButtonElement, Props>(
+  ({ onClick, children, className, disabled }, ref) => {
+    const theme = useTheme();
+
     return (
       <ButtonContainer className={className}>
-        <StyledButton ref={ref} onClick={onClick}>
-          <Typo.Label>{children}</Typo.Label>
+        <StyledButton disabled={disabled} ref={ref} onClick={onClick}>
+          <Typo.Label color={theme.color.gray1}>{children}</Typo.Label>
         </StyledButton>
       </ButtonContainer>
     );
@@ -42,5 +44,7 @@ const StyledButton = styled.button`
   width: 100%;
   border-radius: 0.3rem;
 `;
+
+Button.displayName = "Button";
 
 export default Button;

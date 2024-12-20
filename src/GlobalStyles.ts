@@ -7,9 +7,10 @@ const GlobalStyles = createGlobalStyle`
     background-color: rgb(250,250,250);
   }
 
-  h1, h2, h3, h4, h5, h6, p, pre {
+  h1, h2, h3, h4, h5, h6, p, pre, span {
     margin: 0;
     padding: 0;
+    background-color: transparent;
   }
 `;
 

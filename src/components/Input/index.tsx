@@ -1,17 +1,26 @@
+import { forwardRef } from "react";
+import { ControllerRenderProps } from "react-hook-form";
 import styled from "styled-components";
 
-interface Props {
-  fieldName: string;
+type Props = {
   placeholder?: string;
-}
-const Input = ({ fieldName, placeholder }: Props) => {
-  return (
-    <Fieldset>
-      <FormInput id={fieldName} placeholder={placeholder} />
-    </Fieldset>
-  );
-};
+} & ControllerRenderProps;
 
+const Input = forwardRef<HTMLInputElement, Props>(
+  ({ name, placeholder, ...rest }, ref) => {
+    return (
+      <Fieldset>
+        <FormInput
+          id={name}
+          name={name}
+          placeholder={placeholder}
+          ref={ref}
+          {...rest}
+        />
+      </Fieldset>
+    );
+  }
+);
 const Fieldset = styled.fieldset`
   all: unset;
   width: 100%;
@@ -28,5 +37,7 @@ const FormInput = styled.input`
   padding: 4px 10px;
   color: ${(props) => props.theme.color.gray1};
 `;
+
+Input.displayName = "Input";
 
 export default Input;
