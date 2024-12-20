@@ -4,7 +4,9 @@ import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ControlledInput } from "../ControlledInput";
 import { inviteFormSchema } from "@/validator";
-import { invite } from "@/services/invite";
+import { useToast } from "@/store/useToast";
+import { useInviteService } from "@/services/useInviteService";
+import Spinner from "../Spinner";
 
 interface Props {
   fullWidth?: boolean;
@@ -17,6 +19,9 @@ export interface InviteFormState {
 }
 
 const Form = ({ fullWidth }: Props) => {
+  const { open } = useToast();
+  const { invite, loading } = useInviteService();
+
   const form = useForm<InviteFormState>({
     defaultValues: {
       name: "",
@@ -33,26 +38,29 @@ const Form = ({ fullWidth }: Props) => {
     });
 
     if (success) {
-      console.log("Invited!");
+      open("Invitation sent!");
       return;
     }
 
-    console.log("Something went wrong!");
+    open("Oops, please try again!");
   };
 
-  const disabled = Object.keys(form.formState.errors).length > 0;
+  const disabled = Object.keys(form.formState.errors).length > 0 || loading;
 
   return (
-    <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Container fullWidth={fullWidth}>
-          <ControlledInput name="name" placeholder="Name" />
-          <ControlledInput name="email" placeholder="Email" />
-          <ControlledInput name="confirmEmail" placeholder="Confirm email" />
-          <StyledButton disabled={disabled}>Invite!</StyledButton>
-        </Container>
-      </form>
-    </FormProvider>
+    <>
+      {loading && <Spinner />}
+      <FormProvider {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <Container fullWidth={fullWidth}>
+            <ControlledInput name="name" placeholder="Name" />
+            <ControlledInput name="email" placeholder="Email" />
+            <ControlledInput name="confirmEmail" placeholder="Confirm email" />
+            <StyledButton disabled={disabled}>Invite!</StyledButton>
+          </Container>
+        </form>
+      </FormProvider>
+    </>
   );
 };
 

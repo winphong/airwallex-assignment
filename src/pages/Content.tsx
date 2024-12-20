@@ -4,11 +4,8 @@ import Typo from "@/components/Typography";
 import { media } from "@/theme";
 import Form from "@/components/Form";
 import Dialog from "@/components/Dialog";
-import Toast, { Viewport } from "@/components/Toast";
-import { useState } from "react";
 
 export const Content = () => {
-  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <Flex>
@@ -31,9 +28,6 @@ export const Content = () => {
         >
           <Form />
         </Dialog>
-        {/* TODO: Move this to App root */}
-        <Toast open={isOpen} onOpenChange={setIsOpen} />
-        <Viewport />
       </Flex>
     </>
   );

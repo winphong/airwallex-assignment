@@ -6,9 +6,11 @@ import styled from "styled-components";
 const Toast = ({
   open,
   onOpenChange,
+  message,
 }: {
   open: ToastProps["open"];
   onOpenChange: ToastProps["onOpenChange"];
+  message: string;
 }) => {
   return (
     <Root
@@ -16,13 +18,11 @@ const Toast = ({
       type="foreground"
       onOpenChange={(isOpen) => onOpenChange?.(isOpen)}
     >
-      <Title>Success!</Title>
+      <Title>{message}</Title>
       <Description />
     </Root>
   );
 };
-
-export const ToastProvider = RadixToast.Provider;
 
 export const Viewport = styled(RadixToast.Viewport)`
   --viewport-padding: 25px;
