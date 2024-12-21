@@ -19,13 +19,14 @@ const Toast = ({
 }) => {
   return (
     <Root
+      id={"toast-root"}
       $type={type}
       open={open}
       type="foreground"
       onOpenChange={(isOpen) => onOpenChange?.(isOpen)}
     >
-      <Title>{title}</Title>
-      <Description>{description}</Description>
+      <Title id={"toast-title"}>{title}</Title>
+      <Description id={"toast-description"}>{description}</Description>
     </Root>
   );
 };

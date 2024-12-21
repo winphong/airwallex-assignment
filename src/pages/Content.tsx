@@ -15,17 +15,15 @@ export const Content = () => {
           <span>A better way </span>
           <span>to enjoy every day.</span>
         </Title>
-        <Typo.Label>Be the first to know when we launch.</Typo.Label>
+        <Typo.Label role="heading" aria-level={2}>
+          Be the first to know when we launch.
+        </Typo.Label>
         <ErrorBoundary
           FallbackComponent={Fallback}
           onError={(error, info) => console.log({ error, info })}
         >
           <Dialog
-            trigger={
-              <Button onClick={() => console.log("Requesting")}>
-                Request an invite
-              </Button>
-            }
+            trigger={<Button>Request an invite</Button>}
             title={
               <Typo.Label size={"1.8rem"} $weight={600}>
                 Request an Invite
