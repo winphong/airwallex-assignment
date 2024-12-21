@@ -4,6 +4,8 @@ import Typo from "@/components/Typography";
 import { media } from "@/theme";
 import Form from "@/components/Form";
 import Dialog from "@/components/Dialog";
+import { ErrorBoundary } from "react-error-boundary";
+import Fallback from "@/components/Fallback";
 
 export const Content = () => {
   return (
@@ -14,20 +16,25 @@ export const Content = () => {
           <span>to enjoy every day.</span>
         </Title>
         <Typo.Label>Be the first to know when we launch.</Typo.Label>
-        <Dialog
-          trigger={
-            <Button onClick={() => console.log("Requesting")}>
-              Request an invite
-            </Button>
-          }
-          title={
-            <Typo.Label size={"1.8rem"} $weight={600}>
-              Request an Invite
-            </Typo.Label>
-          }
+        <ErrorBoundary
+          FallbackComponent={Fallback}
+          onError={(error, info) => console.log({ error, info })}
         >
-          <Form />
-        </Dialog>
+          <Dialog
+            trigger={
+              <Button onClick={() => console.log("Requesting")}>
+                Request an invite
+              </Button>
+            }
+            title={
+              <Typo.Label size={"1.8rem"} $weight={600}>
+                Request an Invite
+              </Typo.Label>
+            }
+          >
+            <Form />
+          </Dialog>
+        </ErrorBoundary>
       </Flex>
     </>
   );
