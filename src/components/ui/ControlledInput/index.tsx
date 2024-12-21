@@ -45,6 +45,7 @@ export const ControlledInput = forwardRef(
                   field.ref(e);
                 }}
                 placeholder={placeholder}
+                $error={Boolean(error)}
               />
               {error && typeof error.message === "string" && (
                 <ErrorText>{error.message}</ErrorText>

@@ -2,7 +2,6 @@ import ReactDOM from "react-dom";
 import styled from "styled-components";
 
 const Spinner = () => {
-  console.log("\n\nSpinner\n\n");
   return ReactDOM.createPortal(
     <Container>
       <CircularSpinner role="status" />

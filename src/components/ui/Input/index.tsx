@@ -1,23 +1,25 @@
 import { forwardRef } from "react";
 import { ControllerRenderProps } from "react-hook-form";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 type Props = {
   placeholder?: string;
+  $error?: boolean;
 } & ControllerRenderProps;
 
 const Input = forwardRef<HTMLInputElement, Props>(
-  ({ name, placeholder, ...rest }, ref) => {
+  ({ name, placeholder, $error, ...rest }, ref) => {
     return (
       <Fieldset>
         <HiddenLabel htmlFor={name}>{placeholder}</HiddenLabel>
         <FormInput
+          {...rest}
           type="text"
           id={name}
           name={name}
           placeholder={placeholder}
           ref={ref}
-          {...rest}
+          $error={$error}
         />
       </Fieldset>
     );
@@ -34,7 +36,16 @@ const HiddenLabel = styled.label`
   font-size: 0;
 `;
 
-const FormInput = styled.input`
+const errorStyles = css`
+  border: 1.5px solid ${(props) => props.theme.color.red};
+
+  :focus,
+  :focus-visible {
+    outline: ${(props) => props.theme.color.red} auto 1px;
+  }
+`;
+
+const FormInput = styled.input<{ $error?: boolean }>`
   min-height: 42px;
   font-weight: 500;
   border-radius: 5px;
@@ -42,6 +53,8 @@ const FormInput = styled.input`
   background-color: ${(props) => props.theme.color.white};
   padding: 4px 10px;
   color: ${(props) => props.theme.color.gray1};
+
+  ${(props) => props.$error && errorStyles}
 `;
 
 Input.displayName = "Input";

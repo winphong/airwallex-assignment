@@ -1,4 +1,4 @@
-/* eslint-disable no-restricted-imports */
+// eslint-disable-next-line no-restricted-imports
 import * as RadixToast from "@radix-ui/react-toast";
 import { useToast } from "@/store/useToast";
 import Toast, { Viewport } from "@/ui/Toast";
