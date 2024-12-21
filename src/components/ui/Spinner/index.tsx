@@ -2,9 +2,10 @@ import ReactDOM from "react-dom";
 import styled from "styled-components";
 
 const Spinner = () => {
+  console.log("\n\nSpinner\n\n");
   return ReactDOM.createPortal(
     <Container>
-      <CircularSpinner />
+      <CircularSpinner role="status" />
     </Container>,
     document.body // Renders the Spinner at the top level of the DOM
   );

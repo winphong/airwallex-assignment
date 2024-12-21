@@ -25,11 +25,12 @@
     "baseUrl": ".", // Base URL for resolving paths
     "paths": {
       "@/*": ["src/*"],
-      "@/components/*": ["src/components/*"],
       "@/ui/*": ["src/components/ui/*"],
       "@/organism/*": ["src/components/organism/*"],
-      "@/utils/*": ["src/utils/*"]
-    }
+      "@/utils/*": ["src/utils/*"],
+      "@/tests/*": ["tests/*"]
+    },
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
-  "include": ["src"]
+  "include": ["src", "tests"]
 }

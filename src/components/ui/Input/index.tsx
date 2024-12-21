@@ -10,7 +10,9 @@ const Input = forwardRef<HTMLInputElement, Props>(
   ({ name, placeholder, ...rest }, ref) => {
     return (
       <Fieldset>
+        <HiddenLabel htmlFor={name}>{placeholder}</HiddenLabel>
         <FormInput
+          type="text"
           id={name}
           name={name}
           placeholder={placeholder}
@@ -25,10 +27,14 @@ const Fieldset = styled.fieldset`
   all: unset;
   width: 100%;
   display: flex;
+  flex-direction: column;
+`;
+
+const HiddenLabel = styled.label`
+  font-size: 0;
 `;
 
 const FormInput = styled.input`
-  width: 100%;
   min-height: 42px;
   font-weight: 500;
   border-radius: 5px;

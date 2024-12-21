@@ -33,6 +33,12 @@ export default tseslint.config(
                 "ToastProvider is defined at App.tsx. To open toast, make use of `open` function from useToast.",
             },
           ],
+          paths: [
+            {
+              name: "@testing-library/react",
+              message: "Import from @/tests/test-utils.tsx instead",
+            },
+          ],
         },
       ],
     },

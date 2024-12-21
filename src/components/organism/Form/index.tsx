@@ -8,6 +8,7 @@ import { useToast } from "@/store/useToast";
 import { useInviteService } from "@/services/useInviteService";
 import Spinner from "../../ui/Spinner";
 import { ToastType } from "../../ui/Toast/constants";
+import { useEffect } from "react";
 
 interface Props {
   fullWidth?: boolean;
@@ -32,6 +33,32 @@ const Form = ({ fullWidth }: Props) => {
     resolver: zodResolver(inviteFormSchema),
   });
 
+  const {
+    formState: { isSubmitted, errors },
+    watch,
+    clearErrors,
+    setError,
+    reset,
+  } = form;
+
+  const email = watch("email");
+  const confirmEmail = watch("confirmEmail");
+
+  useEffect(() => {
+    if (!isSubmitted || !confirmEmail || errors.email) {
+      return;
+    }
+
+    if (email === confirmEmail) {
+      clearErrors("confirmEmail");
+      return;
+    }
+
+    setError("confirmEmail", {
+      message: "Email must match the one provided above",
+    });
+  }, [email, confirmEmail, isSubmitted, clearErrors, setError, errors.email]);
+
   const onSubmit: SubmitHandler<InviteFormState> = async (data) => {
     const response = await invite({
       name: data.name,
@@ -44,6 +71,7 @@ const Form = ({ fullWidth }: Props) => {
         type: ToastType.Success,
         description: "We can't wait to have your friend at Brocolli & Co!",
       });
+      reset({ name: "", email: "", confirmEmail: "" });
       return;
     }
 
@@ -53,14 +81,14 @@ const Form = ({ fullWidth }: Props) => {
       description: response.errorMessage,
     });
 
-    if (response.errorMessage.includes("Email")) {
+    if (response.errorMessage.toLowerCase().includes("email")) {
       const errorMessage = "Email is already in use";
-      form.setError("email", { message: errorMessage });
-      form.setError("confirmEmail", { message: errorMessage });
+      setError("email", { message: errorMessage });
+      setError("confirmEmail", { message: errorMessage });
     }
   };
 
-  const disabled = Object.keys(form.formState.errors).length > 0 || loading;
+  const disabled = Object.keys(errors).length > 0 || loading;
 
   return (
     <>
