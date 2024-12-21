@@ -4,7 +4,7 @@ import { useToast } from "@/store/useToast";
 import Toast, { Viewport } from "@/components/Toast";
 
 const ToastContext = () => {
-  const { isOpen, close, message } = useToast();
+  const { isOpen, close, title, type, description } = useToast();
 
   return (
     <RadixToast.Provider duration={3000} swipeDirection="down">
@@ -15,7 +15,9 @@ const ToastContext = () => {
             close();
           }
         }}
-        message={message}
+        title={title}
+        description={description}
+        type={type}
       />
       <Viewport />
     </RadixToast.Provider>

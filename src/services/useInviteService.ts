@@ -1,13 +1,13 @@
 import { instance } from "@/services/axios";
 import { z } from "zod";
 import { create } from "zustand/react";
-
+import { AxiosError } from "axios";
 interface InviteStore {
   loading: boolean;
   invite: (data: {
     name: string;
     email: string;
-  }) => Promise<{ success: boolean }>;
+  }) => Promise<{ success: true } | { success: false; errorMessage: string }>;
 }
 
 const InvitationSuccessSchema = z.object({
@@ -39,22 +39,27 @@ export const useInviteService = create<InviteStore>((set) => ({
         return { success: true };
       }
 
-      if ("errorMessage" in validatedResponse) {
-        console.error("Error:", validatedResponse.errorMessage);
-        set({ loading: false });
-        return { success: false };
+      set({ loading: false });
+      return { success: false, errorMessage: "It's not you, it's us" };
+    } catch (error) {
+      set({ loading: false });
+
+      if (error instanceof z.ZodError) {
+        return { success: false, errorMessage: error.message };
       }
 
-      set({ loading: false });
-      return { success: false };
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        console.error("Validation failed:", error);
-      } else {
-        console.error("Request failed:", error);
+      if (error instanceof AxiosError) {
+        return {
+          success: false,
+          /**
+           * Note: Determine the convention of errorMessage and display
+           * error message that's more friendly to user
+           */
+          errorMessage: error.response?.data?.errorMessage ?? error.message,
+        };
       }
-      set({ loading: false });
-      return { success: false };
+
+      return { success: false, errorMessage: "Looks like we hit a snag" };
     }
   },
 }));

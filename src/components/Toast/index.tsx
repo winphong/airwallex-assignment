@@ -2,37 +2,42 @@
 import * as RadixToast from "@radix-ui/react-toast";
 import { ToastProps } from "@radix-ui/react-toast";
 import styled from "styled-components";
+import { ToastType } from "./constants";
 
 const Toast = ({
   open,
   onOpenChange,
-  message,
+  title,
+  description,
+  type,
 }: {
   open: ToastProps["open"];
   onOpenChange: ToastProps["onOpenChange"];
-  message: string;
+  title: string;
+  description: string;
+  type: ToastType;
 }) => {
   return (
     <Root
+      $type={type}
       open={open}
       type="foreground"
       onOpenChange={(isOpen) => onOpenChange?.(isOpen)}
     >
-      <Title>{message}</Title>
-      <Description />
+      <Title>{title}</Title>
+      <Description>{description}</Description>
     </Root>
   );
 };
 
 export const Viewport = styled(RadixToast.Viewport)`
-  --viewport-padding: 25px;
   position: fixed;
   bottom: 0;
   left: 50vw;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
-  padding: var(--viewport-padding);
+  padding: 25px;
   gap: 10px;
   width: 350px;
   margin: 0;
@@ -42,7 +47,7 @@ export const Viewport = styled(RadixToast.Viewport)`
   background-color: transparent;
 `;
 
-const Root = styled(RadixToast.Root)`
+const Root = styled(RadixToast.Root)<{ $type: ToastType }>`
   border-radius: 6px;
   box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
     hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
@@ -52,6 +57,15 @@ const Root = styled(RadixToast.Root)`
   grid-template-columns: auto max-content;
   column-gap: 15px;
   align-items: center;
+
+  &,
+  & > * {
+    background-color: ${(props) =>
+      props.$type === ToastType.Success
+        ? props.theme.color.lime
+        : props.theme.color.scarlet};
+    color: ${(props) => props.theme.color.white};
+  }
 
   @keyframes hide {
     from {
@@ -102,14 +116,13 @@ const Title = styled(RadixToast.Title)`
   grid-area: title;
   margin-bottom: 5px;
   font-weight: 500;
-  color: var(--slate-12);
   font-size: 15px;
+  font-weight: 600;
 `;
 
 const Description = styled(RadixToast.Description)`
   grid-area: description;
   margin: 0;
-  color: var(--slate-11);
   font-size: 13px;
   line-height: 1.3;
 `;

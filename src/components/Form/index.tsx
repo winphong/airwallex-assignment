@@ -7,6 +7,7 @@ import { inviteFormSchema } from "@/validator";
 import { useToast } from "@/store/useToast";
 import { useInviteService } from "@/services/useInviteService";
 import Spinner from "../Spinner";
+import { ToastType } from "../Toast/constants";
 
 interface Props {
   fullWidth?: boolean;
@@ -32,17 +33,31 @@ const Form = ({ fullWidth }: Props) => {
   });
 
   const onSubmit: SubmitHandler<InviteFormState> = async (data) => {
-    const { success } = await invite({
+    const response = await invite({
       name: data.name,
       email: data.email,
     });
 
-    if (success) {
-      open("Invitation sent!");
+    if (response.success) {
+      open({
+        title: "Invitation sent!",
+        type: ToastType.Success,
+        description: "We can't wait to have your friend at Brocolli & Co!",
+      });
       return;
     }
 
-    open("Oops, please try again!");
+    open({
+      title: "Oops, please try again!",
+      type: ToastType.Failure,
+      description: response.errorMessage,
+    });
+
+    if (response.errorMessage.includes("Email")) {
+      const errorMessage = "Email is already in use";
+      form.setError("email", { message: errorMessage });
+      form.setError("confirmEmail", { message: errorMessage });
+    }
   };
 
   const disabled = Object.keys(form.formState.errors).length > 0 || loading;
