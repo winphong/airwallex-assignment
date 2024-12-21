@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import Button from "../Button";
+import Button from "../../ui/Button";
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ControlledInput } from "../ControlledInput";
+import { ControlledInput } from "../../ui/ControlledInput";
 import { inviteFormSchema } from "@/validator";
 import { useToast } from "@/store/useToast";
 import { useInviteService } from "@/services/useInviteService";
-import Spinner from "../Spinner";
-import { ToastType } from "../Toast/constants";
+import Spinner from "../../ui/Spinner";
+import { ToastType } from "../../ui/Toast/constants";
 
 interface Props {
   fullWidth?: boolean;

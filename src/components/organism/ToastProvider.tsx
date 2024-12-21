@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-imports */
 import * as RadixToast from "@radix-ui/react-toast";
 import { useToast } from "@/store/useToast";
-import Toast, { Viewport } from "@/components/Toast";
+import Toast, { Viewport } from "@/ui/Toast";
 
 const ToastContext = () => {
   const { isOpen, close, title, type, description } = useToast();

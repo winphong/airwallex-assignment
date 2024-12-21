@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import Button from "@/components/Button";
-import Typo from "@/components/Typography";
+import Button from "@/ui/Button";
+import Typo from "@/ui/Typography";
 import { media } from "@/theme";
-import Form from "@/components/Form";
-import Dialog from "@/components/Dialog";
+import Form from "@/organism/Form";
+import Dialog from "@/ui/Dialog";
 import { ErrorBoundary } from "react-error-boundary";
-import Fallback from "@/components/Fallback";
+import Fallback from "@/ui/Fallback";
 
 export const Content = () => {
   return (

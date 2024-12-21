@@ -1,6 +1,6 @@
 import { ForwardedRef, forwardRef, useCallback } from "react";
 import { Controller, useFormContext, Path, FieldValues } from "react-hook-form";
-import Input from "@/components/Input";
+import Input from "@/ui/Input";
 import styled from "styled-components";
 
 type ControlledInputProps<T> = {

@@ -1,4 +1,4 @@
-import { ToastType } from "@/components/Toast/constants";
+import { ToastType } from "@/ui/Toast/constants";
 import { create } from "zustand";
 
 type Toast = {

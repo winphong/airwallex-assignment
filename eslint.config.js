@@ -29,7 +29,8 @@ export default tseslint.config(
           paths: [
             {
               name: "@radix-ui/react-toast",
-              message: "Import Toast @/components/Toast instead",
+              message:
+                "ToastProvider is defined at App.tsx. To open toast, make use of `open` function from useToast.",
             },
           ],
         },
