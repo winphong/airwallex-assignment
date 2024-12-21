@@ -1,5 +1,6 @@
 import { ToastType } from "@/ui/Toast/constants";
 import { create } from "zustand";
+import { devtools, persist } from "zustand/middleware";
 
 type Toast = {
   isOpen: boolean;
@@ -18,12 +19,20 @@ type Toast = {
   close: () => void;
 };
 
-export const useToast = create<Toast>()((set) => ({
-  isOpen: false,
-  title: "",
-  description: "",
-  type: ToastType.Success,
-  open: ({ title, type, description }) =>
-    set(() => ({ isOpen: true, title, type, description })),
-  close: () => set(() => ({ isOpen: false })),
-}));
+export const useToast = create<Toast>()(
+  devtools(
+    persist(
+      (set) => ({
+        isOpen: false,
+        title: "",
+        description: "",
+        type: ToastType.Success,
+        open: ({ title, type, description }) =>
+          set(() => ({ isOpen: true, title, type, description })),
+        close: () => set(() => ({ isOpen: false })),
+      }),
+      { name: "toast" }
+    ),
+    { name: "toast" }
+  )
+);
