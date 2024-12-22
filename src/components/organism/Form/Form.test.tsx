@@ -203,6 +203,30 @@ describe("Form", () => {
     });
   });
 
+  it("should ensure name has no leading or trailing spaces", async () => {
+    render(<Form />);
+
+    const button = screen.getByRole("button", { name: "Invite!" });
+    // Manually trigger validation check on all fields
+    await userEvent.click(button);
+
+    const nameInput = screen.getByRole("textbox", { name: "Name" });
+    await userEvent.type(nameInput, "John Doe ");
+    expect(
+      screen.getByText("Name should not have spaces at the start or end")
+    ).toBeVisible();
+
+    await userEvent.clear(nameInput);
+    expect(
+      screen.queryByText("Name should not have spaces at the start or end")
+    ).toBeNull();
+
+    await userEvent.type(nameInput, " John Doe");
+    expect(
+      screen.getByText("Name should not have spaces at the start or end")
+    ).toBeVisible();
+  });
+
   it("should show feedback to user when server return email is in use error", async () => {
     useInviteService.setState({
       loading: false,
