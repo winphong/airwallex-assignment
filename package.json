@@ -6,11 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "test": "vitest",
+    "test": "vitest --run",
+    "test:watch": "vitest",
     "lint": "eslint .",
     "preview": "vite preview",
     "playwright:setup": "bunx playwright install chromium",
-    "playwright:test": "bun run build && bunx playwright test"
+    "playwright:test": "bunx playwright test"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

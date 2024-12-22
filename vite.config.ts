@@ -15,13 +15,13 @@ export default defineConfig({
     },
   },
   build: {
-    sourcemap: true,
+    sourcemap: "hidden",
   },
   test: {
     globals: true,
     environment: "jsdom",
     exclude: [...configDefaults.exclude, "node_modules/**"],
-    setupFiles: "./test/vitest.setup.ts",
+    setupFiles: "./tests/vitest.setup.ts",
     include: ["**/*.test.tsx"],
   },
 });

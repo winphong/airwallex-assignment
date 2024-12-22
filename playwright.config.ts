@@ -8,7 +8,7 @@ import { defineConfig, devices } from "@playwright/test";
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
 
-const PORT = 8000;
+const PORT = 5173;
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -70,9 +70,9 @@ export default defineConfig({
   ],
 
   /* Run your local dev server before starting the tests */
-  webServer: {
-    command: `bun preview --port=${PORT}`,
-    url: `http://localhost:${PORT}`,
-    reuseExistingServer: !process.env.CI,
-  },
+  // webServer: {
+  //   command: `bun vite --port=${PORT}`,
+  //   url: `http://localhost:${PORT}`,
+  //   reuseExistingServer: !process.env.CI,
+  // },
 });

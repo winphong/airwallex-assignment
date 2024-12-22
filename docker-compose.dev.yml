@@ -1,0 +1,11 @@
+services:
+  airwallex:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: airwallex:0.0.1-snapshot
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
